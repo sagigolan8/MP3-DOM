@@ -5,18 +5,20 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    // Your code here
+    alert("works")
 }
 
 /**
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const children =  [createElement("p",title,[],{}),
-    createElement("p",album,[],{}),
-    createElement("p",artist,[],{}),
-    createElement("p",durationFormat(duration)),
-    
+    const children = [
+        createElement("p", title, [], {}),
+        createElement("p", album, [], {}),
+        createElement("p", artist, [], {}),
+        createElement("p", durationFormat(duration), [], {}),
+        createElement("img", null, [], { src: coverArt }),
+    ]
     const classes = []
     const attrs = { onclick: `playSong(${id})` }
     return createElement("div", children, classes, attrs)
@@ -26,12 +28,11 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  * Creates a playlist DOM element based on a playlist object.
  */
 function createPlaylistElement({ id, name, songs }) {
-    const children =
-     [createElement("p",title,[],{}),
-        createElement("p",album,[],{}),
-        createElement("p",artist,[],{}),
-        createElement("p",durationFormat()),
-        createElement()]
+    const children = [
+        createElement("p", name, [], {}),
+        createElement("p", songs.length, [], {}),
+        createElement("p", playlistDuration(id), [], {}),
+    ]
     const classes = []
     const attrs = {}
     return createElement("div", children, classes, attrs)
@@ -51,46 +52,71 @@ function createPlaylistElement({ id, name, songs }) {
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
     const element = document.createElement(tagName)
-    for (let child of children) {
-        element.append(child)
+    if (Array.isArray(children))
+        for (let child of children) {
+            element.append(child)
+        }
+    else {
+        element.innerHTML = children
     }
     for (let name of classes) {
-        element.classList.append(name)
+        element.classList.add(name)
     }
-    for (let attribute of attributes) {
+    for (let attribute in attributes) {
         element.setAttribute(attribute, attributes[attribute])
     }
     return element
 }
 
-
-const elemHtml = document.getElementById("songs")
 // You can write more code below this line
-
-
 
 function durationFormat(duration) {
     //converting from seconds to mm:ss format
     let minutes = Math.floor(duration / 60)
     let seconds = duration % 60
-    if (minutes < 10 && seconds < 10) return '0' + minutes + ':' + '0' + seconds
-    else if (minutes < 10) return '0' + minutes + ':' + seconds
-    else if (seconds < 10) return minutes + ':' + '0' + seconds
-    else return minutes + ':' + seconds
-  }
+    if (minutes < 10 && seconds < 10) return "0" + minutes + ":" + "0" + seconds
+    else if (minutes < 10) return "0" + minutes + ":" + seconds
+    else if (seconds < 10) return minutes + ":" + "0" + seconds
+    else return minutes + ":" + seconds
+}
 
+function playlistDuration(id) {
+    let correctPlaylist = findPlaylistById(id) //correctPlaylist contain the wanted playlist
+    let saveSongId = 0,
+        sum = 0
+    for (let i = 0; i < correctPlaylist.songs.length; i++) {
+        //run on the songs array inside this playlist
+        saveSongId = correctPlaylist.songs[i]
+        for (let j = 0; j < player.songs.length; j++) {
+            //run on the songs array
+            if (player.songs[j].id === saveSongId) sum += player.songs[j].duration
+        }
+    }
+    return durationFormat(sum)
+}
 
-/**
- * Creates a song DOM element based on a song object.
- */
+function findPlaylistById(id) {
+    //Get a playlist id and return the wanted playlist by his id
+    let correctPlaylist
+    for (let i = 0; i < player.playlists.length; i++) {
+        //run on playlists array
+        if (id === player.playlists[i].id) correctPlaylist = player.playlists[i]
+    }
+    return correctPlaylist
+}
 
-// function doSomething() {
-//     const firstEl = createElement("div", ["some text"], ["duration-class"], {style:`color: red;`});
-//     const secondEl = createElement("span", [], ["class1", "class2"]);
-//     const thirdEl = createElement("span", [secondEl], [], {onclick:`console.log("hello")`});
-//     const imgEl = createElement("img", ["art"], {src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HelloWorld.svg/1200px-HelloWorld.svg.png"})
-//     return createElement("div", [imgEl, createElement("br"), "hi", firstEl, thirdEl]);
-//   }
+const elemHtml = document.getElementById("songs")
+const elemHtml1 = document.getElementById("playlists")
 
-document.createElement("div")
-div.innerHTML = "<h1>hello</h1>"
+player.playlists.sort((playlistA, playlistB) => playlistA.name.localeCompare(playlistB.name))
+player.songs.sort((songA, songB) => songA.title.localeCompare(songB.title))
+
+for (let i = 0; i < player.songs.length; i++) {
+    //songs
+    elemHtml.append(createSongElement(player.songs[i]))
+}
+
+for (let i = 0; i < player.playlists.length; i++) {
+    //playlists
+    elemHtml1.append(createPlaylistElement(player.playlists[i]))
+}
