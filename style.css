@@ -1,1 +1,74 @@
 /* Your code here */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+body {
+    background-color: rgb(191, 219, 255);
+    font-family: "Ubuntu", sans-serif;
+    width: 65%;
+    margin: auto;
+
+    font-size: 18px;
+}
+
+@keyframes playingAnimation {
+    0% {
+        background-color: rgb(255, 223, 164);
+    }
+    25% {
+        background-color: rgb(117, 255, 195);
+    }
+    50% {
+        background-color: rgb(237, 28, 36);
+    }
+    100% {
+        background-color: rgb(255, 223, 164);
+    }
+}
+.song-div {
+    background-color: rgb(255, 223, 164);
+    display: inline-block;
+    margin: 0.7%;
+    padding: 1.2%;
+    border-radius: 20px;
+    border: solid 8px rgb(178, 144, 80);
+
+    animation-play-state: paused;
+}
+
+.song-div-while-playing {
+    background-color: rgb(255, 223, 164);
+    display: inline-block;
+    margin: 0.7%;
+    padding: 1.2%;
+    border-radius: 20px;
+    border: solid 8px rgb(178, 144, 80);
+    animation-name: playingAnimation;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+.song-div:hover {
+    background-color: rgb(178, 144, 80);
+}
+
+.coverArt-div {
+    height: auto;
+    width: 100%;
+}
+
+.playlist-div {
+    background-color: rgb(255, 223, 164);
+    display: inline-block;
+    margin: 0.7%;
+    padding: 1.2%;
+    border-radius: 20px;
+    border: solid 8px rgb(178, 144, 80);
+}
+
+hr.solid {
+    border-top: 3px solid rgb(178, 144, 80);
+}
+
+.song-detail {
+    border-radius: 5px;
+}
