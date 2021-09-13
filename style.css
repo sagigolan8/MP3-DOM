@@ -33,6 +33,7 @@ h1 {
     font-family: Georgia, "Times New Roman", Times, serif;
     font-weight: bold;
     text-decoration: underline;
+    color: rgb(255, 255, 255);
 }
 
 i {
@@ -129,4 +130,8 @@ i {
     -webkit-animation: blink normal 3s infinite ease-in-out;
     -ms-animation: blink normal 3s infinite ease-in-out;
     animation: blink normal 3s infinite ease-in-out;
+}
+
+.border-Img {
+    border: 10px solid gold;
 }

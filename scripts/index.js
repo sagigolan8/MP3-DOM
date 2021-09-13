@@ -22,7 +22,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         createElement("p", "Album: " + album, [], {}),
         createElement("p", "Artist: " + artist, [], {}),
         createElement("p", "Duration: " + durationFormat(duration), [], {}),
-        createElement("img", [], [], { src: coverArt }),
+        createElement("img", [], ["border-Img"], { src: coverArt }),
     ]
     const classes = []
     const attrs = { onclick: `playSong(${id})`, id: "song" + id, title: "title" + title }
