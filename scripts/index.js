@@ -5,7 +5,12 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    alert("works")
+    for (const song of player.songs) {
+        document.getElementById("song" + song.id).classList.remove("playing")
+        if (song.id === songId) {
+            document.getElementById("song" + song.id).classList.add("playing")
+        }
+    }
 }
 
 /**
@@ -13,14 +18,14 @@ function playSong(songId) {
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = [
-        createElement("p", title, [], {}),
-        createElement("p", album, [], {}),
-        createElement("p", artist, [], {}),
-        createElement("p", durationFormat(duration), [], {}),
-        createElement("img", null, [], { src: coverArt }),
+        createElement("p", "Title: " + title, [], {}),
+        createElement("p", "Album: " + album, [], {}),
+        createElement("p", "Artist: " + artist, [], {}),
+        createElement("p", "Duration: " + durationFormat(duration), [], {}),
+        createElement("img", [], [], { src: coverArt }),
     ]
     const classes = []
-    const attrs = { onclick: `playSong(${id})` }
+    const attrs = { onclick: `playSong(${id})`, id: "song" + id }
     return createElement("div", children, classes, attrs)
 }
 
@@ -29,9 +34,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  */
 function createPlaylistElement({ id, name, songs }) {
     const children = [
-        createElement("p", name, [], {}),
-        createElement("p", songs.length, [], {}),
-        createElement("p", playlistDuration(id), [], {}),
+        createElement("p", "Playlist name: " + name, [], {}),
+        createElement("p", "Number of songs: " + [songs.length], [], {}),
+        createElement("p", "Duartion: " + playlistDuration(id), [], {}),
     ]
     const classes = []
     const attrs = {}
@@ -52,12 +57,8 @@ function createPlaylistElement({ id, name, songs }) {
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
     const element = document.createElement(tagName)
-    if (Array.isArray(children))
-        for (let child of children) {
-            element.append(child)
-        }
-    else {
-        element.innerHTML = children
+    for (let child of children) {
+        element.append(child)
     }
     for (let name of classes) {
         element.classList.add(name)
@@ -105,18 +106,18 @@ function findPlaylistById(id) {
     return correctPlaylist
 }
 
-const elemHtml = document.getElementById("songs")
-const elemHtml1 = document.getElementById("playlists")
+const songsElement = document.getElementById("songs")
+const playlistsElement = document.getElementById("playlists")
 
-player.playlists.sort((playlistA, playlistB) => playlistA.name.localeCompare(playlistB.name))
-player.songs.sort((songA, songB) => songA.title.localeCompare(songB.title))
+player.playlists.sort((playlistA, playlistB) => playlistA.name.localeCompare(playlistB.name)) //sort the songs
+player.songs.sort((songA, songB) => songA.title.localeCompare(songB.title)) //sort the playlists
 
 for (let i = 0; i < player.songs.length; i++) {
     //songs
-    elemHtml.append(createSongElement(player.songs[i]))
+    songsElement.append(createSongElement(player.songs[i]))
 }
 
 for (let i = 0; i < player.playlists.length; i++) {
     //playlists
-    elemHtml1.append(createPlaylistElement(player.playlists[i]))
+    playlistsElement.append(createPlaylistElement(player.playlists[i]))
 }
