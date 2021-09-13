@@ -25,7 +25,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         createElement("img", [], [], { src: coverArt }),
     ]
     const classes = []
-    const attrs = { onclick: `playSong(${id})`, id: "song" + id }
+    const attrs = { onclick: `playSong(${id})`, id: "song" + id, title: "title" + title }
     return createElement("div", children, classes, attrs)
 }
 
@@ -73,8 +73,8 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 
 function durationFormat(duration) {
     //converting from seconds to mm:ss format
-    let minutes = Math.floor(duration / 60)
-    let seconds = duration % 60
+    const minutes = Math.floor(duration / 60)
+    const seconds = duration % 60
     if (minutes < 10 && seconds < 10) return "0" + minutes + ":" + "0" + seconds
     else if (minutes < 10) return "0" + minutes + ":" + seconds
     else if (seconds < 10) return minutes + ":" + "0" + seconds
@@ -82,7 +82,7 @@ function durationFormat(duration) {
 }
 
 function playlistDuration(id) {
-    let correctPlaylist = findPlaylistById(id) //correctPlaylist contain the wanted playlist
+    const correctPlaylist = findPlaylistById(id) //correctPlaylist contain the wanted playlist
     let saveSongId = 0,
         sum = 0
     for (let i = 0; i < correctPlaylist.songs.length; i++) {
@@ -113,11 +113,11 @@ player.playlists.sort((playlistA, playlistB) => playlistA.name.localeCompare(pla
 player.songs.sort((songA, songB) => songA.title.localeCompare(songB.title)) //sort the playlists
 
 for (let i = 0; i < player.songs.length; i++) {
-    //songs
+    // run on songs array
     songsElement.append(createSongElement(player.songs[i]))
 }
 
 for (let i = 0; i < player.playlists.length; i++) {
-    //playlists
+    // run on playlists array
     playlistsElement.append(createPlaylistElement(player.playlists[i]))
 }
