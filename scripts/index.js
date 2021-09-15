@@ -23,10 +23,23 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         createElement("p", "Artist: " + artist, [], {}),
         createElement("p", "Duration: " + durationFormat(duration), [], {}),
         createElement("img", [], ["border-Img"], { src: coverArt }),
+        createElement("button", ["▶"], ["play-song-button"], {}),
+        createElement("button", ["❌"], ["remove-song"], {}),
     ]
     const classes = []
     const attrs = { onclick: `playSong(${id})`, id: "song" + id, title: "title" + title }
     return createElement("div", children, classes, attrs)
+}
+
+// console.log(String(songId))
+
+const divAllSongs = document.getElementById("songs")
+divAllSongs.addEventListener("click", removeSongs)
+function removeSongs(e, songId) {
+    if (e.target.classList.contains("remove-song")) {
+        const divSong = e.target.parentElement
+        divAllSongs.removeChild(divSong)
+    }
 }
 
 /**
@@ -41,6 +54,10 @@ function createPlaylistElement({ id, name, songs }) {
     const classes = []
     const attrs = {}
     return createElement("div", children, classes, attrs)
+}
+
+function removeSong(songId) {
+    for (let i = 0; i < player.songs.length; i++) if (player.songs[i].id === songId) player.songs.splice(i, 1)
 }
 
 /**
@@ -114,6 +131,7 @@ player.songs.sort((songA, songB) => songA.title.localeCompare(songB.title)) //so
 
 for (let i = 0; i < player.songs.length; i++) {
     // run on songs array
+
     songsElement.append(createSongElement(player.songs[i]))
 }
 
