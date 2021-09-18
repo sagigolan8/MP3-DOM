@@ -4,60 +4,53 @@
  *
  * @param {String} songId - the ID of the song to play
  */
+
 function playSong(songId) {
-    for (const song of player.songs) {
-        document.getElementById("song" + song.id).classList.remove("playing")
-        if (song.id === songId) {
-            document.getElementById("song" + song.id).classList.add("playing")
-        }
+    const divAllSong = document.getElementsByClassName("child") //the div that wrap of the song
+    for (const divSong of divAllSong) {
+        //remove the green mark from all songs
+        divSong.style.borderLeft = "transparent"
     }
+    const currentSong = document.getElementById(songId)
+    currentSong.style.borderRadius = "10px" //the left green mark when song playing
+    currentSong.style.borderLeft = "20px solid green"
 }
+
+const divOfAllSongs = document.getElementById("songs")
+divOfAllSongs.addEventListener("click", (e) => {
+    playSong(e.target.id)
+})
 
 /**
  * Creates a song DOM element based on a song object.
  */
+
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = [
-        createElement("p", "Title: " + title, [], {}),
-        createElement("p", "Album: " + album, [], {}),
-        createElement("p", "Artist: " + artist, [], {}),
-        createElement("p", "Duration: " + durationFormat(duration), [], {}),
         createElement("img", [], ["border-Img"], { src: coverArt }),
-        createElement("button", ["▶"], ["play-song-button"], {}),
-        createElement("button", ["❌"], ["remove-song"], {}),
+        createElement("span", "Title | " + title, [], {}),
+        createElement("span", "Album | " + album, [], {}),
+        createElement("span", "Artist | " + artist, [], {}),
+        createElement("span", durationFormat(duration), ["duration"], {}),
     ]
-    const classes = []
-    const attrs = { onclick: `playSong(${id})`, id: "song" + id, title: "title" + title }
+    const classes = ["child"]
+    const attrs = { id: "song" + id, title: "title" + title }
     return createElement("div", children, classes, attrs)
-}
-
-// console.log(String(songId))
-
-const divAllSongs = document.getElementById("songs")
-divAllSongs.addEventListener("click", removeSongs)
-function removeSongs(e, songId) {
-    if (e.target.classList.contains("remove-song")) {
-        const divSong = e.target.parentElement
-        divAllSongs.removeChild(divSong)
-    }
 }
 
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
+
 function createPlaylistElement({ id, name, songs }) {
     const children = [
-        createElement("p", "Playlist name: " + name, [], {}),
-        createElement("p", "Number of songs: " + [songs.length], [], {}),
-        createElement("p", "Duartion: " + playlistDuration(id), [], {}),
+        createElement("span", name, [], {}),
+        createElement("span", "  | " + [songs.length] + " songs ", [], {}),
+        createElement("span", playlistDuration(id), ["duration"], {}),
     ]
-    const classes = []
+    const classes = ["child"]
     const attrs = {}
     return createElement("div", children, classes, attrs)
-}
-
-function removeSong(songId) {
-    for (let i = 0; i < player.songs.length; i++) if (player.songs[i].id === songId) player.songs.splice(i, 1)
 }
 
 /**

@@ -10,6 +10,9 @@ body {
     align-items: center;
     flex-wrap: wrap-reverse;
 }
+#inputs {
+    width: 150px;
+}
 
 img {
     width: 100px;
@@ -17,7 +20,7 @@ img {
     border-radius: 5%;
 }
 
-#list {
+#player {
     display: flex;
     justify-content: start;
     flex-direction: column;
@@ -25,36 +28,35 @@ img {
     line-height: 1.5rem;
 }
 
-.playing {
-    color: rgb(81, 179, 57);
-}
-
-h1 {
+h2 {
     font-family: Georgia, "Times New Roman", Times, serif;
     font-weight: bold;
-    text-decoration: underline;
-    color: rgb(255, 255, 255);
+    color: gold;
 }
 
-i {
-    font-size: 30px;
-    color: maroon;
-}
-
-.lists {
+/* .lists {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
 
 .songs,
 .playlists {
-    width: 22ch;
+    width: 90ch;
     animation: typing 2s steps(22), blink 0.5s step-end alternate;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 3px solid;
+    border-right: 2px solid;
+}
+
+div {
+    text-align: left;
+
+    border: 1px solid rgb(15, 15, 14);
+}
+#inputs {
+    border: none;
 }
 
 @keyframes typing {
@@ -114,30 +116,19 @@ i {
     }
 }
 
-.disappear {
-    background-color: rgb(120, 83, 180);
-    padding: 15px 15px 15px 15px;
-    text-align: center;
-    margin-bottom: 4px;
-    font-size: 24px;
-    border-radius: 5px;
-    -moz-transition: all 2s ease-in-out;
-    -webkit-transition: all 2s ease-in-out;
-    -o-transition: all 2s ease-in-out;
-    -ms-transition: all 2s ease-in-out;
-    transition: all 2s ease-in-out;
-    -moz-animation: blink normal 3s infinite ease-in-out;
-    -webkit-animation: blink normal 3s infinite ease-in-out;
-    -ms-animation: blink normal 3s infinite ease-in-out;
-    animation: blink normal 3s infinite ease-in-out;
-}
-
 .border-Img {
     border: 10px solid gold;
 }
 
 button {
-    float: left;
     width: 40px;
     height: 30px;
+}
+
+.play-song-button,
+.remove-song-button {
+    float: right;
+}
+.duration {
+    float: right;
 }
