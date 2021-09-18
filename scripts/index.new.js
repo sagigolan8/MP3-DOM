@@ -15,6 +15,17 @@ function playSong(songId) {
     currentSong.style.borderLeft = "20px solid green"
 }
 
+//adding the event listener to the songs list
+const divOfAllSongs = document.getElementById("songs")
+divOfAllSongs.addEventListener("click", (e) => {
+    if (e.target.className === "play-song-button") {
+        playSong(e.target.parentElement.id)
+    } else if (e.target.className === "remove-song-button") {
+        removeSongFromPlayer(e.target.parentElement.id)
+        const divSong = e.target.parentElement
+        divOfAllSongs.removeChild(divSong)
+    }
+})
 /**
  * Removes a song from the player, and updates the DOM to match.
  *
