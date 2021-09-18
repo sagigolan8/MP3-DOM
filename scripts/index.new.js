@@ -4,7 +4,16 @@
  *
  * @param {Number} songId - the ID of the song to play
  */
-function playSong(songId) {}
+function playSong(songId) {
+    const divAllSong = document.getElementsByClassName("child") //the div that wrap of the song
+    for (const divSong of divAllSong) {
+        //remove the green mark from all songs
+        divSong.style.borderLeft = "transparent"
+    }
+    const currentSong = document.getElementById(songId)
+    currentSong.style.borderRadius = "10px" //the left green mark when song playing
+    currentSong.style.borderLeft = "20px solid green"
+}
 
 /**
  * Removes a song from the player, and updates the DOM to match.
