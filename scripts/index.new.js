@@ -14,14 +14,14 @@ function playSong(songId) {
     for (const divSong of divAllSong) {
         //remove the red marks from all songs
         divSong.style.borderLeft = "transparent"
-        divSong.style.color = "black"
+        divSong.style.color = "rgb(0 0 0 / 73%)"
     }
     const currentSong = document.getElementById(songId)
     currentSong.style.borderRadius = "10px" //the red marks when song playing
-    currentSong.style.borderLeft = "20px solid #B11226"
-    currentSong.style.color = "#B11226"
+    currentSong.style.borderLeft = "20px solid white"
+    currentSong.style.color = "white"
 }
-
+//#B11226
 /**
  * Removes a song from the player, and updates the DOM to match.
  *

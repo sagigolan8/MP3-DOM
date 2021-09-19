@@ -3,15 +3,13 @@ body {
     margin: 0;
     font-family: "Sriracha", sans-serif;
     font-weight: bold;
-    background: linear-gradient(to right, rgb(38, 13, 151), rgba(255, 255, 255, 0.692), rgb(40, 11, 148));
+    /* background: linear-gradient(to right, rgb(38, 13, 151), rgba(255, 255, 255, 0.692), rgb(40, 11, 148)); */
+    background: linear-gradient(to right, rgba(48, 46, 46, 0.95), rgba(138, 8, 8, 0.9));
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap-reverse;
-}
-#input {
-    width: 150px;
 }
 
 img {
@@ -36,7 +34,7 @@ h2 {
 
 .songs,
 .playlists {
-    width: 90ch;
+    width: 91ch;
     animation: typing 2s steps(22), blink 0.5s step-end alternate;
     white-space: nowrap;
     overflow: hidden;
@@ -50,8 +48,9 @@ div {
     padding: 10px;
     border-radius: 19px;
 }
-#input {
-    border: none;
+.input {
+    border-radius: 19px;
+    border: 3px solid rgb(196, 196, 38);
 }
 
 @keyframes typing {
@@ -133,4 +132,8 @@ button {
 button:hover {
     background: rgba(238, 238, 238, 0.336);
     color: #b11226;
+}
+
+#lists {
+    color: rgb(0 0 0 / 73%);
 }
