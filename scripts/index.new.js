@@ -1,3 +1,8 @@
+/*I understood that it was said in the last lesson that the template we got in the index.new.js file was 
+a recommendation to give us direction for the project and we did not have to work exactly 
+according to it. so I changed things a bit and did not use all the functions listed there for 
+design and efficiency reasons, hopefully it's okay.
+*/
 /**
  * Plays a song from the player.
  * Playing a song means changing the visual indication of the currently playing song.
@@ -252,7 +257,7 @@ generateSongs()
 generatePlaylists()
 
 // Making the add-song-button actually do something
-// document.getElementById("add-button").addEventListener("click", handleAddSongEvent)//I did it in line 46
+// document.getElementById("add-button").addEventListener("click", handleAddSongEvent)//I did it in line 138
 
 //the function adds the elements to the web page
 function renderMp3ToDom() {
