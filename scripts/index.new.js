@@ -5,35 +5,26 @@
  * @param {Number} songId - the ID of the song to play
  */
 function playSong(songId) {
-    const divAllSong = document.getElementsByClassName("child") //the div that wrap of the song
+    const divAllSong = document.getElementsByClassName("child")
     for (const divSong of divAllSong) {
-        //remove the green mark from all songs
+        //remove the red marks from all songs
         divSong.style.borderLeft = "transparent"
+        divSong.style.color = "black"
     }
     const currentSong = document.getElementById(songId)
-    currentSong.style.borderRadius = "10px" //the left green mark when song playing
-    currentSong.style.borderLeft = "20px solid green"
+    currentSong.style.borderRadius = "10px" //the red marks when song playing
+    currentSong.style.borderLeft = "20px solid #B11226"
+    currentSong.style.color = "#B11226"
 }
 
-//adding the event listener to the songs list
-const divOfAllSongs = document.getElementById("songs")
-divOfAllSongs.addEventListener("click", (e) => {
-    if (e.target.className === "play-song-button") {
-        playSong(e.target.parentElement.id)
-    } else if (e.target.className === "remove-song-button") {
-        removeSongFromPlayer(e.target.parentElement.id)
-        const divSong = e.target.parentElement
-        divOfAllSongs.removeChild(divSong)
-    }
-})
 /**
  * Removes a song from the player, and updates the DOM to match.
  *
  * @param {Number} songId - the ID of the song to remove
  */
-// function removeSong(songId) {
-//     // Your code here
-// }
+function removeSong(songId) {
+    // Your code here
+}
 
 /**
  * Adds a song to the player, and updates the DOM to match.
@@ -41,30 +32,6 @@ divOfAllSongs.addEventListener("click", (e) => {
 // function addSong({ title, album, artist, duration, coverArt }) {
 //     // Your code here
 // }
-//adding a song
-const addButton = document.getElementById("add-button")
-addButton.addEventListener("click", addSong)
-function addSong(e) {
-    e.preventDefault()
-    const divAllSongs = document.getElementById("songs")
-    const idVal = generateId()
-    const titleVal = document.getElementById("title").value
-    const albumVal = document.getElementById("album").value
-    const artistVal = document.getElementById("artist").value
-    const durationVal = covertFormatToNumber(document.getElementById("duration").value)
-    const coverArtVal = document.getElementById("cover-art").value
-    const newSongObj = {
-        id: idVal,
-        title: titleVal,
-        album: albumVal,
-        artist: artistVal,
-        duration: durationVal,
-        coverArt: coverArtVal,
-    }
-    player.songs.push(newSongObj)
-    const song = createSongElement(newSongObj)
-    divAllSongs.append(song)
-}
 
 /**
  * Acts on a click event on an element inside the songs list.
@@ -92,9 +59,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = [
         createElement("img", [], ["border-Img"], { src: coverArt }),
         createElement("span", "Title | " + title, [], {}),
-        createElement("span", "Album | " + album, [], {}),
-        createElement("span", "Artist | " + artist, [], {}),
-        createElement("span", durationFormat(duration), ["duration"], {}),
+        createElement("span", " Album | " + album, [], {}),
+        createElement("span", " Artist | " + artist, [], {}),
+        createElement("span", " " + durationFormat(duration), ["duration"], {}),
         createElement("button", ["❌"], ["remove-song-button"], {}),
         createElement("button", ["▶️"], ["play-song-button"], {}),
     ]
@@ -133,24 +100,81 @@ function createPlaylistElement({ id, name, songs }) {
 function createElement(tagName, children = [], classes = [], attributes = {}, eventListeners = {}) {
     const element = document.createElement(tagName)
     for (let child of children) {
+        //adds the text or the element as a child his the parent element
         element.append(child)
     }
     for (let name of classes) {
+        //adds the classes to the element
         element.classList.add(name)
     }
     for (let attribute in attributes) {
+        //adds the attributes to the element
         element.setAttribute(attribute, attributes[attribute])
     }
     return element
 }
 
+// adding the event listener to the songs list
+const divOfAllSongs = document.getElementById("songs")
+divOfAllSongs.addEventListener("click", (e) => {
+    //listening to the click event in order to remove/play button
+    if (e.target.className === "play-song-button") {
+        //if the play button pressed
+        playSong(e.target.parentElement.id)
+    } else if (e.target.className === "remove-song-button") {
+        //if the remove button pressed
+        removeSongFromPlayer(e.target.parentElement.id) //remove the song from the player
+        const divSong = e.target.parentElement
+        divOfAllSongs.removeChild(divSong) //remove the song from the webpage
+    }
+})
+
+//adding a song
+const addButton = document.getElementById("add-button")
+addButton.addEventListener("click", (e) => {
+    //listening to the click event in order to add a song button
+    e.preventDefault()
+    const divAllSongs = document.getElementById("songs")
+    const idVal = generateId() //get new unique ID for the new song
+    const titleVal = document.getElementById("title").value
+    const albumVal = document.getElementById("album").value
+    const artistVal = document.getElementById("artist").value
+    const durationVal = covertFormatToNumber(document.getElementById("duration").value)
+    const coverArtVal = document.getElementById("cover-art").value
+    const newSongObj = {
+        //get all values from the user and put them together in object
+        id: idVal,
+        title: titleVal,
+        album: albumVal,
+        artist: artistVal,
+        duration: durationVal,
+        coverArt: coverArtVal,
+    }
+
+    const song = createSongElement(newSongObj) //creates a song element
+    player.songs.push(newSongObj) //adds the new song to the player
+    divAllSongs.append(song) //add the song to the webpage
+    window.scrollTo(0, document.body.scrollHeight) //scroll automatically to the bottom of the page in order to see the new song
+})
+
+const resetButton = document.getElementById("reset-button")
+resetButton.addEventListener("click", (e) => {
+    //listening to the click event in order to reset all the inputs
+    e.preventDefault()
+    const inputs = document.getElementsByClassName("input")
+    for (const input of inputs) {
+        //runs on all inputs
+        input.value = "" //reset the inputs
+    }
+})
+
 ///////////////////////////////////--- All my help functions(start) ---//////////////////////////////////////////////////////////
 function removeSongFromPlayer(songId) {
     //remove the song from the player
-    for (let playlist of player.playlists) {
-        for (let i = 0; i <= playlist.songs.length; i++) {
-            if (playlist.songs[i] == songId) {
-                playlist.songs.splice(i, 1)
+    for (let i = 0; i < player.playlists; i++) {
+        for (let j = 0; j < playlist.songs.length; i++) {
+            if (playlist.songs[j] == songId) {
+                playlist.songs.splice(j, 1)
             }
         }
     }
@@ -230,19 +254,23 @@ generatePlaylists()
 // Making the add-song-button actually do something
 // document.getElementById("add-button").addEventListener("click", handleAddSongEvent)//I did it in line 46
 
-//here we call all the songs and the playlists
-const songsElement = document.getElementById("songs")
-const playlistsElement = document.getElementById("playlists")
+//the function adds the elements to the web page
+function renderMp3ToDom() {
+    const songsElement = document.getElementById("songs")
+    const playlistsElement = document.getElementById("playlists")
 
-player.playlists.sort((playlistA, playlistB) => playlistA.name.localeCompare(playlistB.name)) //sort the songs
-player.songs.sort((songA, songB) => songA.title.localeCompare(songB.title)) //sort the playlists
+    //sorts the songs and the playlists arrays
+    player.playlists.sort((playlistA, playlistB) => playlistA.name.localeCompare(playlistB.name))
+    player.songs.sort((songA, songB) => songA.title.localeCompare(songB.title))
 
-for (let i = 0; i < player.songs.length; i++) {
-    // run on songs array
-    songsElement.append(createSongElement(player.songs[i]))
+    //add the songs and the playlists elements to the page
+    for (let i = 0; i < player.songs.length; i++) {
+        songsElement.append(createSongElement(player.songs[i]))
+    }
+    for (let i = 0; i < player.playlists.length; i++) {
+        playlistsElement.append(createPlaylistElement(player.playlists[i]))
+    }
 }
 
-for (let i = 0; i < player.playlists.length; i++) {
-    // run on playlists array
-    playlistsElement.append(createPlaylistElement(player.playlists[i]))
-}
+//calling the function
+renderMp3ToDom()
