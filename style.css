@@ -10,7 +10,7 @@ body {
     align-items: center;
     flex-wrap: wrap-reverse;
 }
-#inputs {
+#input {
     width: 150px;
 }
 
@@ -36,19 +36,21 @@ h2 {
 
 .songs,
 .playlists {
-    width: 83ch;
+    width: 90ch;
     animation: typing 2s steps(22), blink 0.5s step-end alternate;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 2px solid;
 }
 
 div {
     text-align: left;
     box-shadow: 0px 0px 100px 0px;
-    border: 1px solid rgb(151, 151, 137);
+
+    border: 2px solid rgb(151, 151, 137);
+    padding: 10px;
+    border-radius: 19px;
 }
-#inputs {
+#input {
     border: none;
 }
 
@@ -112,11 +114,6 @@ div {
 .border-Img {
     border: 10px solid gold;
 }
-
-/* button {
-    width: 50px;
-    height: 32px;
-} */
 
 .play-song-button,
 .remove-song-button {
