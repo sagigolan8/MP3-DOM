@@ -1,14 +1,3 @@
-/*I understood that it was said in the last lesson that the template we got in the index.new.js file was 
-a recommendation to give us direction for the project and we did not have to work exactly 
-according to it. so I changed things a bit and did not use all the functions listed there for 
-design and efficiency reasons, hopefully it's okay.
-*/
-/**
- * Plays a song from the player.
- * Playing a song means changing the visual indication of the currently playing song.
- *
- * @param {Number} songId - the ID of the song to play
- */
 function playSong(songId) {
     const divAllSong = document.getElementsByClassName("child")
     for (const divSong of divAllSong) {
@@ -21,45 +10,7 @@ function playSong(songId) {
     currentSong.style.borderLeft = "20px solid white"
     currentSong.style.color = "white"
 }
-//#B11226
-/**
- * Removes a song from the player, and updates the DOM to match.
- *
- * @param {Number} songId - the ID of the song to remove
- */
-function removeSong(songId) {
-    // Your code here
-}
 
-/**
- * Adds a song to the player, and updates the DOM to match.
- */
-// function addSong({ title, album, artist, duration, coverArt }) {
-//     // Your code here
-// }
-
-/**
- * Acts on a click event on an element inside the songs list.
- * Should handle clicks on play buttons and remove buttons of songs.
- *
- * @param {MouseEvent} event - the click event
- */
-function handleSongClickEvent(event) {
-    // Your code here
-}
-
-/**
- * Handles a click event on the button that adds songs.
- *
- * @param {MouseEvent} event - the click event
- */
-function handleAddSongEvent(event) {
-    // Your code here
-}
-
-/**
- * Creates a song DOM element based on a song object.
- */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = [
         createElement("img", [], ["border-Img"], { src: coverArt }),
@@ -102,7 +53,7 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  * @param {Object} eventListeners - the event listeners on the element
  */
-function createElement(tagName, children = [], classes = [], attributes = {}, eventListeners = {}) {
+function createElement(tagName, children = [], classes = [], attributes = {}) {
     const element = document.createElement(tagName)
     for (let child of children) {
         //adds the text or the element as a child his the parent element
@@ -120,7 +71,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
 }
 
 // adding the event listener to the songs list
-const divOfAllSongs = document.getElementById("songs")
+const divOfAllSongs = songs
 divOfAllSongs.addEventListener("click", (e) => {
     //listening to the click event in order to remove/play button
     if (e.target.className === "play-song-button") {
@@ -139,21 +90,21 @@ const addButton = document.getElementById("add-button")
 addButton.addEventListener("click", (e) => {
     //listening to the click event in order to add a song button
     e.preventDefault()
-    const divAllSongs = document.getElementById("songs")
-    const idVal = generateId() //get new unique ID for the new song
-    const titleVal = document.getElementById("title").value
-    const albumVal = document.getElementById("album").value
-    const artistVal = document.getElementById("artist").value
-    const durationVal = covertFormatToNumber(document.getElementById("duration").value)
-    const coverArtVal = document.getElementById("cover-art").value
+    const divAllSongs = songs
+    const id = generateId() //get new unique ID for the new song
+    const title = title.value
+    const album = album.value
+    const artist = artist.value
+    const duration = duration.value
+    const coverArt = document.getElementById("cover-art").value
     const newSongObj = {
         //get all values from the user and put them together in object
-        id: idVal,
-        title: titleVal,
-        album: albumVal,
-        artist: artistVal,
-        duration: durationVal,
-        coverArt: coverArtVal,
+        id,
+        title,
+        album,
+        artist,
+        duration,
+        coverArt,
     }
 
     const song = createSongElement(newSongObj) //creates a song element
@@ -238,31 +189,10 @@ function generateId() {
 }
 ///////////////////////////////////--- All my help functions(end) ---//////////////////////////////////////////////////////////
 
-/**
- * Inserts all songs in the player as DOM elements into the songs list.
- */
-function generateSongs() {
-    // Your code here
-}
-
-/**
- * Inserts all playlists in the player as DOM elements into the playlists list.
- */
-function generatePlaylists() {
-    // Your code here
-}
-
-// Creating the page structure
-generateSongs()
-generatePlaylists()
-
-// Making the add-song-button actually do something
-// document.getElementById("add-button").addEventListener("click", handleAddSongEvent)//I did it in line 138
-
 //the function adds the elements to the web page
 function renderMp3ToDom() {
-    const songsElement = document.getElementById("songs")
-    const playlistsElement = document.getElementById("playlists")
+    const songsElement = songs
+    const playlistsElement = playlists
 
     //sorts the songs and the playlists arrays
     player.playlists.sort((playlistA, playlistB) => playlistA.name.localeCompare(playlistB.name))
