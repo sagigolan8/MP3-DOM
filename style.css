@@ -1,1 +1,139 @@
-/* Your code here */
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&display=swap");
+body {
+    margin: 0;
+    font-family: "Sriracha", sans-serif;
+    font-weight: bold;
+    /* background: linear-gradient(to right, rgb(38, 13, 151), rgba(255, 255, 255, 0.692), rgb(40, 11, 148)); */
+    background: linear-gradient(to right, rgba(48, 46, 46, 0.95), rgba(138, 8, 8, 0.9));
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5%;
+}
+
+#player {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.5rem;
+}
+
+h2 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-weight: bold;
+    color: gold;
+}
+
+.songs,
+.playlists {
+    width: 91ch;
+    animation: typing 2s steps(22), blink 0.5s step-end alternate;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+div {
+    text-align: left;
+    box-shadow: 0px 0px 100px 0px;
+
+    border: 2px solid rgb(151, 151, 137);
+    padding: 10px;
+    border-radius: 19px;
+}
+.input {
+    border-radius: 19px;
+    border: 3px solid rgb(196, 196, 38);
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+@-moz-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@-ms-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.border-Img {
+    border: 10px solid gold;
+}
+
+.play-song-button,
+.remove-song-button {
+    float: right;
+}
+
+button {
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    border-radius: 24px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+button:hover {
+    background: rgba(238, 238, 238, 0.336);
+    color: #b11226;
+}
+
+#lists {
+    color: rgb(0 0 0 / 73%);
+}
